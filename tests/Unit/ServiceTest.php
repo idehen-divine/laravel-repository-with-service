@@ -5,10 +5,6 @@ namespace L0n3ly\LaravelRepositoryWithService\Tests\Unit;
 use Illuminate\Support\Str;
 use L0n3ly\LaravelRepositoryWithService\Tests\TestCase;
 
-/**
- * @group unit
- * Class ServiceTest
- */
 class ServiceTest extends TestCase
 {
     private $suffix;
@@ -24,11 +20,11 @@ class ServiceTest extends TestCase
         $this->artisan("make:service {$this->suffix}")->assertSuccessful();
 
         $filePath = $this->app->basePath()
-            .'/'
-            .config('service-repository.service_directory')
-            ."/{$this->suffix}/{$this->suffix}"
-            .config('service-repository.service_interface_suffix')
-            .'.php';
+            . '/'
+            . config('service-repository.service_directory')
+            . "/{$this->suffix}/{$this->suffix}"
+            . config('service-repository.service_interface_suffix')
+            . '.php';
 
         $this->assertFileExists($filePath);
     }
@@ -38,11 +34,11 @@ class ServiceTest extends TestCase
         $this->artisan("make:service {$this->suffix}")->assertSuccessful();
 
         $filePath = $this->app->basePath()
-            .'/'
-            .config('service-repository.service_directory')
-            ."/{$this->suffix}/{$this->suffix}"
-            .config('service-repository.service_suffix')
-            .'.php';
+            . '/'
+            . config('service-repository.service_directory')
+            . "/{$this->suffix}/{$this->suffix}"
+            . config('service-repository.service_suffix')
+            . '.php';
 
         $this->assertFileExists($filePath);
     }
@@ -72,11 +68,11 @@ class ServiceTest extends TestCase
         if (count($explode) > 1) {
             $namespace = '';
             for ($i = 0; $i < count($explode) - 1; $i++) {
-                $namespace .= '\\'.$explode[$i];
+                $namespace .= '\\' . $explode[$i];
             }
-            $namespace = config('service-repository.service_namespace').$namespace.'\\'.end($explode);
+            $namespace = config('service-repository.service_namespace') . $namespace . '\\' . end($explode);
         } else {
-            $namespace = config('service-repository.service_namespace').'\\'.$className;
+            $namespace = config('service-repository.service_namespace') . '\\' . $className;
         }
 
         $this->assertStringEndsWith('Category', $namespace);
