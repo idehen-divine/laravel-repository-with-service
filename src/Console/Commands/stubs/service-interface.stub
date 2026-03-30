@@ -1,0 +1,10 @@
+<?php
+
+namespace {namespace};
+
+use L0n3ly\LaravelRepositoryWithService\Contracts\BaseService;
+
+interface {serviceInterface} extends BaseService{
+
+    // Write something awesome :)
+}

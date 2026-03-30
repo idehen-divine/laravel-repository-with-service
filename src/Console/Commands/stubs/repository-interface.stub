@@ -1,0 +1,10 @@
+<?php
+
+namespace {namespace};
+
+use L0n3ly\LaravelRepositoryWithService\Contracts\Repository;
+
+interface {repositoryInterfaceName} extends Repository{
+
+    // Write something awesome :)
+}

@@ -1,0 +1,65 @@
+{
+    "name": "l0n3ly/laravel-repository-with-service",
+    "description": "Repository and service pattern package for Laravel",
+    "keywords": [
+        "laravel",
+        "laravel-repository",
+        "laravel-repository-service"
+    ],
+    "homepage": "https://github.com/l0n3ly/laravel-repository-with-service.git",
+    "license": "MIT",
+    "require": {
+        "php": "^8.2",
+        "spatie/laravel-package-tools": "^1.16",
+        "illuminate/contracts": "^11.0||^12.0||^13.0"
+    },
+    "require-dev": {
+        "laravel/pint": "^1.14",
+        "nunomaduro/collision": "^8.1.1||^7.10.0",
+        "larastan/larastan": "^2.9||^3.0",
+        "orchestra/testbench": "^9.0.0||^10.0.0||^11.0.0",
+        "pestphp/pest": "^3.0",
+        "pestphp/pest-plugin-arch": "^3.0",
+        "pestphp/pest-plugin-laravel": "^3.0",
+        "phpstan/extension-installer": "^1.3||^2.0",
+        "phpstan/phpstan-deprecation-rules": "^1.1||^2.0",
+        "phpstan/phpstan-phpunit": "^1.3||^2.0",
+        "spatie/laravel-ray": "^1.35"
+    },
+    "autoload": {
+        "psr-4": {
+            "L0n3ly\\LaravelRepositoryWithService\\": "src",
+            "L0n3ly\\LaravelRepositoryWithService\\Database\\Factories\\": "database/factories"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "L0n3ly\\LaravelRepositoryWithService\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "psalm": "vendor/bin/psalm",
+        "test": "./vendor/bin/testbench package:test --parallel --no-coverage",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true,
+            "phpstan/extension-installer": true
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "L0n3ly\\LaravelRepositoryWithService\\Providers\\PackageProvider",
+                "L0n3ly\\LaravelRepositoryWithService\\Providers\\ServiceProvider"
+            ],
+            "aliases": {
+                "L0n3lyRepositoryWithService": "L0n3ly\\LaravelRepositoryWithService\\Facades\\ServiceRepositoryFacade"
+            }
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
