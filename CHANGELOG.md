@@ -28,7 +28,8 @@ All notable changes to `laravel-repository-with-service` will be documented in t
 
 ### Added
 
-- `make:repository` now supports subdirectory input (e.g., `Admin/User`), generating files and namespaces under the correct nested path — matching the existing behaviour of `make:service`
+- `make:repository` now supports subdirectory input (e.g., `Admin/User`)
+- Files and namespaces are generated under the correct nested path, matching `make:service` behaviour
 
 ### Changed
 
