@@ -24,6 +24,16 @@ All notable changes to `laravel-repository-with-service` will be documented in t
 -
 -->
 
+## 1.1.0 - 2026-03-30
+
+### Added
+
+- `make:repository` now supports subdirectory input (e.g., `Admin/User`), generating files and namespaces under the correct nested path — matching the existing behaviour of `make:service`
+
+### Changed
+
+- Updated README with badges, features section, and improved package description
+
 ## 1.0.1 - 2026-03-30
 
 ### Fixed
