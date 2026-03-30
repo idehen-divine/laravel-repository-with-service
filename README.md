@@ -20,13 +20,13 @@ A Laravel package that generates repository and service layers and automatically
 Install the latest 1.x release:
 
 ```bash
-composer require l0n3ly/laravel-repository-with-service"
+composer require l0n3ly/laravel-repository-with-service
 ```
 
 Publish the config file:
 
 ```bash
-php artisan vendor:publish --provider="L0n3ly\LaravelRepositoryWithService\Providers\PackageProvider" --tag="service-repository-config"
+php artisan vendor:publish --tag=repository-with-service-config
 ```
 
 ## Quick Usage
