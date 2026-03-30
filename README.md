@@ -1,21 +1,26 @@
 # Laravel Repository With Service
 
-A Laravel package that generates repository and service layers and automatically binds interfaces to implementations.
+[![Latest Version](https://img.shields.io/packagist/v/l0n3ly/laravel-repository-with-service.svg?style=flat-square)](https://packagist.org/packages/l0n3ly/laravel-repository-with-service)
+[![Total Downloads](https://img.shields.io/packagist/dt/l0n3ly/laravel-repository-with-service.svg?style=flat-square)](https://packagist.org/packages/l0n3ly/laravel-repository-with-service)
+[![License](https://img.shields.io/packagist/l/l0n3ly/laravel-repository-with-service.svg?style=flat-square)](https://packagist.org/packages/l0n3ly/laravel-repository-with-service)
 
-## Requirements
+A Laravel package that scaffolds the repository and service pattern — generates repository and service classes with interfaces, and automatically binds them to their implementations via the container.
+
+## ✨ Features
+
+- 🏗️ **Artisan Scaffolding** - Generate repositories and services with `make:repository` and `make:service`
+- 🔗 **Auto Binding** - Automatically binds interfaces to implementations via the service container
+- 📁 **Subdirectory Support** - Organize classes in nested directories (e.g., `Admin/UserRepository`)
+- 🔄 **Paired Generation** - Generate a repository and service together with a single command
+- 📋 **Interface-First** - Always generates a contract interface alongside each implementation
+- 🎨 **Multiple Templates** - Choose between API service template or blank template
+
+## 📋 Requirements
 
 - PHP ^8.2
 - Laravel 11, 12, or 13
 
-## Version Support
-
-| Laravel | Package |
-|:-------:|:-------:|
-| 11.x    | 1.x     |
-| 12.x    | 1.x     |
-| 13.x    | 1.x     |
-
-## Installation
+## 📦 Installation
 
 Install the latest 1.x release:
 
