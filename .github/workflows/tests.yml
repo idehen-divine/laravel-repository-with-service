@@ -1,0 +1,61 @@
+name: CI Tests
+
+on:
+  push:
+    branches:
+      - dev
+      - master
+  pull_request:
+    branches:
+      - dev
+      - master
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - php-version: "8.2"
+            laravel: "^11.0"
+            testbench: "^9.0"
+          - php-version: "8.2"
+            laravel: "^12.0"
+            testbench: "^10.0"
+          - php-version: "8.3"
+            laravel: "^13.0"
+            testbench: "^11.0"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          tools: composer:v2
+          coverage: none
+
+      - name: Validate composer.json
+        run: composer validate --strict
+
+      - name: Cache Composer Dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.composer/cache/files
+          key: ${{ runner.os }}-php-${{ matrix.php-version }}-laravel-${{ matrix.laravel }}-testbench-${{ matrix.testbench }}-composer-${{ hashFiles('**/composer.json') }}
+          restore-keys: |
+            ${{ runner.os }}-php-${{ matrix.php-version }}-laravel-${{ matrix.laravel }}-
+
+      - name: Resolve Laravel Compatibility Dependencies
+        run: |
+          composer require "illuminate/contracts:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
+
+      - name: Install Dependencies
+        run: composer update --prefer-dist --no-interaction --no-progress
+
+      - name: Run Tests
+        run: composer test
