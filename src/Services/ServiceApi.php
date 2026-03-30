@@ -83,7 +83,7 @@ class ServiceApi implements BaseService
         try {
             $data = $this->mainRepository->create($data);
 
-            return $this->setMessage($this->title . ' ' . $this->create_message)
+            return $this->setMessage($this->title.' '.$this->create_message)
                 ->setCode(200)
                 ->setData($data);
         } catch (\Exception $exception) {
@@ -103,7 +103,7 @@ class ServiceApi implements BaseService
         try {
             $this->mainRepository->update($id, $data);
 
-            return $this->setMessage($this->title . ' ' . $this->update_message)
+            return $this->setMessage($this->title.' '.$this->update_message)
                 ->setCode(200);
         } catch (\Exception $exception) {
             return $this->exceptionResponse($exception);
@@ -120,7 +120,7 @@ class ServiceApi implements BaseService
         try {
             $this->mainRepository->delete($id);
 
-            return $this->setMessage($this->title . ' ' . $this->delete_message)
+            return $this->setMessage($this->title.' '.$this->delete_message)
                 ->setCode(200);
         } catch (\Exception $exception) {
             return $this->exceptionResponse($exception);
@@ -137,7 +137,7 @@ class ServiceApi implements BaseService
         try {
             $this->mainRepository->destroy($id);
 
-            return $this->setMessage($this->title . ' ' . $this->delete_message)
+            return $this->setMessage($this->title.' '.$this->delete_message)
                 ->setCode(200);
         } catch (\Exception $exception) {
             return $this->exceptionResponse($exception);

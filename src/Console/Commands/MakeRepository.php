@@ -42,7 +42,7 @@ class MakeRepository extends Command
 
         // Second we create the repoisitory directory
         // This will be implement by the interface class
-        $this->createRepository($className, !$other);
+        $this->createRepository($className, ! $other);
 
         if ($this->option('service')) {
             $this->createService();
@@ -71,8 +71,8 @@ class MakeRepository extends Command
      */
     public function createRepositoryInterface(string $className)
     {
-        $repositoryInterfaceNamespace = config('service-repository.repository_namespace') . '\\' . $className;
-        $repositoryInterfaceName = $className . config('service-repository.repository_interface_suffix');
+        $repositoryInterfaceNamespace = config('service-repository.repository_namespace').'\\'.$className;
+        $repositoryInterfaceName = $className.config('service-repository.repository_interface_suffix');
         $stubProperties = [
             '{namespace}' => $repositoryInterfaceNamespace,
             '{repositoryInterfaceName}' => $repositoryInterfaceName,
@@ -88,11 +88,11 @@ class MakeRepository extends Command
         new CreateFileHelper(
             $stubProperties,
             $repositoryInterfacePath,
-            __DIR__ . '/stubs/repository-interface.stub'
+            __DIR__.'/stubs/repository-interface.stub'
         );
-        $this->line("<info>Created $className repository interface:</info> " . $repositoryInterfaceName);
+        $this->line("<info>Created $className repository interface:</info> ".$repositoryInterfaceName);
 
-        return $repositoryInterfaceNamespace . '\\' . $className;
+        return $repositoryInterfaceNamespace.'\\'.$className;
     }
 
     /**
@@ -102,13 +102,13 @@ class MakeRepository extends Command
      */
     public function createRepository(string $className, $isDefault = true)
     {
-        $repositoryNamespace = config('service-repository.repository_namespace') . '\\' . $className;
+        $repositoryNamespace = config('service-repository.repository_namespace').'\\'.$className;
 
-        $repositoryName = $className . config('service-repository.repository_suffix');
+        $repositoryName = $className.config('service-repository.repository_suffix');
         $stubProperties = [
             '{namespace}' => $repositoryNamespace,
             '{repositoryName}' => $repositoryName,
-            '{repositoryInterfaceName}' => $className . config('service-repository.repository_interface_suffix'),
+            '{repositoryInterfaceName}' => $className.config('service-repository.repository_interface_suffix'),
             '{ModelName}' => $className,
         ];
 
@@ -122,11 +122,11 @@ class MakeRepository extends Command
         new CreateFileHelper(
             $stubProperties,
             $repositoryPath,
-            __DIR__ . "/stubs/$stubName"
+            __DIR__."/stubs/$stubName"
         );
-        $this->line("<info>Created $className repository implement:</info> " . $repositoryName);
+        $this->line("<info>Created $className repository implement:</info> ".$repositoryName);
 
-        return $repositoryNamespace . '\\' . $className;
+        return $repositoryNamespace.'\\'.$className;
     }
 
     /**
@@ -136,7 +136,7 @@ class MakeRepository extends Command
      */
     private function getRepositoryInterfaceNamespace(string $className)
     {
-        return config('service-repository.repository_namespace') . '\\' . $className;
+        return config('service-repository.repository_namespace').'\\'.$className;
     }
 
     /**
@@ -146,9 +146,9 @@ class MakeRepository extends Command
      */
     private function getRepositoryInterfacePath($className)
     {
-        return $this->appPath() . '/' .
-            config('service-repository.repository_directory') .
-            "/$className/$className" . config('service-repository.repository_interface_suffix') . '.php';
+        return $this->appPath().'/'.
+            config('service-repository.repository_directory').
+            "/$className/$className".config('service-repository.repository_interface_suffix').'.php';
     }
 
     /**
@@ -159,11 +159,11 @@ class MakeRepository extends Command
     private function getRepositoryPath($className, $isDefault)
     {
         $path = $isDefault
-            ? '/' . $className . "/$className" . config('service-repository.repository_suffix') . '.php'
-            : "/Other/$className" . config('service-repository.repository_suffix') . '.php';
+            ? '/'.$className."/$className".config('service-repository.repository_suffix').'.php'
+            : "/Other/$className".config('service-repository.repository_suffix').'.php';
 
-        return $this->appPath() . '/' .
-            config('service-repository.repository_directory') . $path;
+        return $this->appPath().'/'.
+            config('service-repository.repository_directory').$path;
     }
 
     /**
@@ -174,6 +174,6 @@ class MakeRepository extends Command
     private function checkIfRequiredDirectoriesExist(string $className)
     {
         $this->ensureDirectoryExists(config('service-repository.repository_directory'));
-        $this->ensureDirectoryExists(config('service-repository.repository_directory') . '/' . $className);
+        $this->ensureDirectoryExists(config('service-repository.repository_directory').'/'.$className);
     }
 }
