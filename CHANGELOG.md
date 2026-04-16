@@ -23,6 +23,12 @@ All notable changes to `laravel-repository-with-service` will be documented in t
 ### Security
 -
 -->
+
+## [1.2.1] - 2026-04-16
+
+### Changed
+- update minimum-stability to stable in composer.json
+
 ## [1.2.0] - 2026-04-16
 
 ### Added
@@ -35,7 +41,7 @@ All notable changes to `laravel-repository-with-service` will be documented in t
 ### Changed
 - Updated model property type in eloquent-repository.stub and clean up service-api.stub
 
-## 1.1.0 - 2026-03-30
+## [1.1.0] - 2026-03-30
 
 ### Added
 
@@ -46,7 +52,7 @@ All notable changes to `laravel-repository-with-service` will be documented in t
 
 - Updated README with badges, features section, and improved package description
 
-## 1.0.1 - 2026-03-30
+## [1.0.1] - 2026-03-30
 
 ### Fixed
 
@@ -54,7 +60,7 @@ All notable changes to `laravel-repository-with-service` will be documented in t
 - Corrected publish tag in README from `service-repository-config` to `repository-with-service-config`
 - Fixed typo in README `composer require` command (stray trailing quote)
 
-## 1.0.0 - 2026-03-30
+## [1.0.0] - 2026-03-30
 
 ### Added
 
