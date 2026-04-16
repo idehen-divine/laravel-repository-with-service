@@ -23,6 +23,17 @@ All notable changes to `laravel-repository-with-service` will be documented in t
 ### Security
 -
 -->
+## [1.2.0] - 2026-04-16
+
+### Added
+- Complete Laravel Boost integration with three AI skills:
+  - `repository-generator` skill for repository generation patterns
+  - `service-generator` skill for service and business logic patterns
+  - `service-binding` skill for dependency injection and container binding patterns
+- Added installation, quick start, API, commands, and troubleshooting documentation
+
+### Changed
+- Updated model property type in eloquent-repository.stub and clean up service-api.stub
 
 ## 1.1.0 - 2026-03-30
 

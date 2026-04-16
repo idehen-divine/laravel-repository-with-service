@@ -3,6 +3,7 @@
 [![Latest Version](https://img.shields.io/packagist/v/l0n3ly/laravel-repository-with-service.svg?style=flat-square)](https://packagist.org/packages/l0n3ly/laravel-repository-with-service)
 [![Total Downloads](https://img.shields.io/packagist/dt/l0n3ly/laravel-repository-with-service.svg?style=flat-square)](https://packagist.org/packages/l0n3ly/laravel-repository-with-service)
 [![License](https://img.shields.io/packagist/l/l0n3ly/laravel-repository-with-service.svg?style=flat-square)](https://packagist.org/packages/l0n3ly/laravel-repository-with-service)
+[![Laravel Boost Compatible](https://img.shields.io/badge/Laravel%20Boost-Compatible-brightgreen.svg?style=flat-square)](./BOOST.md)
 
 A Laravel package that scaffolds the repository and service pattern — generates repository and service classes with interfaces, and automatically binds them to their implementations via the container.
 
@@ -14,6 +15,7 @@ A Laravel package that scaffolds the repository and service pattern — generate
 - 🔄 **Paired Generation** - Generate a repository and service together with a single command
 - 📋 **Interface-First** - Always generates a contract interface alongside each implementation
 - 🎨 **Multiple Templates** - Choose between API service template or blank template
+- 🤖 **Boost Compatible** - Full support for Laravel Boost AI-powered workflows and Copilot skills
 
 ## 📋 Requirements
 
@@ -34,69 +36,260 @@ Publish the config file:
 php artisan vendor:publish --tag=repository-with-service-config
 ```
 
-## Quick Usage
+## Quick Start
 
-Generate repository only:
+### Fastest Start: Generate Everything at Once
+
+Scaffold a complete feature with one command:
 
 ```bash
+php artisan make:model User --all
+```
+
+This creates everything — model, migration, factory, seeder, controller, repository, and service.
+
+### Generate a Repository
+
+```bash
+# Basic repository
 php artisan make:repository User
-php artisan make:repository UserRepository
-```
 
-Generate repository with service:
-
-```bash
+# Repository with paired service
 php artisan make:repository User --service
-php artisan make:repository UserRepository --service
+
+# Repository with API-style service
+php artisan make:repository User --service --api
+
+# Repository in subdirectory
+php artisan make:repository Admin/User --service
 ```
 
-Generate service only:
+### Generate a Service
 
 ```bash
-php artisan make:service User
+# Basic service
 php artisan make:service UserService
+
+# API service with response helpers
+php artisan make:service UserService --api
+
+# Service with paired repository
 php artisan make:service UserService --repository
+
+# Minimal service
+php artisan make:service UserService --blank
 ```
 
-Generate service with blank template:
+### Generate from a Model
 
 ```bash
-php artisan make:service UserService --blank
+# Model with service and repository
+php artisan make:model Product --service --repository
+
+# Model with everything (fastest)
+php artisan make:model Order --all
+```
+
+### Use in Your Code
+
+Services and repositories are automatically bound to the container:
+
+```php
+class UserController extends Controller
+{
+    public function __construct(
+        protected UserRepository $repository,
+        protected UserService $service
+    ) {}
+
+    public function index()
+    {
+        return $this->service->getActiveUsers();
+    }
+}
+```
+
+## 📖 Documentation
+
+Comprehensive documentation is available in the `docs/` directory:
+
+| Document | Purpose |
+|----------|---------|
+| [Installation Guide](./docs/INSTALLATION.md) | Setup and configuration instructions |
+| [Quick Start Guide](./docs/QUICKSTART.md) | Getting started with the package |
+| [Command Reference](./docs/COMMANDS.md) | Detailed command documentation |
+| [API Documentation](./docs/API.md) | API reference and advanced usage |
+| [Troubleshooting Guide](./docs/TROUBLESHOOTING.md) | Common issues and solutions |
+| [Examples](./EXAMPLES.md) | Real-world usage examples |
+| [Contributing](./CONTRIBUTING.md) | Contribution guidelines |
+| [Laravel Boost Integration](./BOOST.md) | Using with AI-powered Boost workflows |
+
+## 🤖 Laravel Boost Support
+
+This package is fully integrated with **Laravel Boost** and provides three AI skills to enhance your development workflow:
+
+### Three Essential Skills
+- **Repository Generator** - Generate repositories with best practices
+- **Service Generator** - Generate services with business logic
+- **Service Binding** - Understand dependency injection and binding patterns
+
+These skills are located in `resources/boost/skills/` and are discovered by running:
+
+```bash
+php artisan boost:install --discover
+```
+
+Select the desired skills during installation, and they'll be available to your AI agent.
+
+### AI-Powered Workflows
+
+Get intelligent suggestions for:
+- Generating complete feature modules
+- Creating repository hierarchies
+- Setting up service structures
+- Testing patterns and mocking
+
+### Example Boost Usage
+
+```
+User: "Generate a complete blog module with posts, comments, and categories"
+
+Boost activates the skills and suggests:
+✓ PostRepository with PostService (API template)
+✓ CommentRepository with CommentService
+✓ CategoryRepository with CategoryService
+✓ BlogManager service orchestrating operations
+```
+
+### Getting Started with Boost
+
+1. Install Laravel Boost in your Laravel project
+2. Run `php artisan boost:install --discover`
+3. Select this package's skills when prompted
+4. Ask your AI agent to generate repositories, services, or help with architecture
+
+See [BOOST.md](./BOOST.md) for detailed integration guide.
+
+## 🎯 Common Patterns
+
+### Blog Application
+```bash
+php artisan make:repository Post --service --api
+php artisan make:repository Category --service
+php artisan make:repository Post/Comment --service
+```
+
+### E-Commerce
+```bash
+php artisan make:repository Product --service --api
+php artisan make:repository Order --service --api
+php artisan make:service Shop/Checkout --api
+php artisan make:service Shop/Inventory --api
+```
+
+### SaaS with Multi-Tenancy
+```bash
+php artisan make:repository Tenant --service --api
+php artisan make:repository User --service --api
+php artisan make:repository Subscription --service --api
+```
+
+See [EXAMPLES.md](./EXAMPLES.md) for complete real-world examples.
+
+## 🔧 Configuration
+
+Edit `config/service-repository.php` to customize:
+
+```php
+return [
+    'repository_directory' => 'app/Repositories',
+    'repository_namespace' => 'App\Repositories',
+    'service_directory' => 'app/Services',
+    'service_namespace' => 'App\Services',
+    // ... naming conventions
+];
 ```
 
 ## Override Binding Example
 
-If you want to decorate or replace a bound implementation, you can extend it in your application service provider:
+Decorate or replace a bound implementation in your service provider:
 
 ```php
-$this->app->extend(Interface::class, function ($service, $app) {
-    return new NewImplement($service);
+$this->app->extend(UserRepository::class, function ($service, $app) {
+    return new CachedUserRepository($service);
 });
 ```
 
-## Service API Notes
+## Service API Template
 
-The API service template uses the response helper methods provided by `ResultService`.
-
-Common getters:
+The `--api` flag generates services with response helpers:
 
 ```php
-$serviceName->getData();
-$serviceName->getCode();
-$serviceName->getMessage();
-$serviceName->getError();
+class UserServiceImplement implements UserService
+{
+    use ResultService;
+
+    public function create(array $data): array
+    {
+        try {
+            $user = $this->repository->create($data);
+            return $this->success($user, 'User created');
+        } catch (Exception $e) {
+            return $this->error($e->getMessage());
+        }
+    }
+}
 ```
 
-Common setters:
+## 🚀 Performance Tips
+
+1. **Use Caching** - Wrap repositories with caching decorators
+2. **Eager Loading** - Use Eloquent's `with()` in repositories
+3. **Singleton Services** - For stateless services, bind as singleton
+4. **Optimize Queries** - Focus repository methods on specific queries
+
+## 🧪 Testing
+
+Mock repositories in tests:
 
 ```php
-$this->setCode();
-$this->setData();
-$this->setError();
-$this->setMessage();
+public function test_service_logic()
+{
+    $repository = Mockery::mock(UserRepository::class);
+    $repository->shouldReceive('find')->with(1)->andReturn(['id' => 1]);
+
+    $this->app->bind(UserRepository::class, fn() => $repository);
+
+    $service = app(UserService::class);
+    $result = $service->getUser(1);
+
+    $this->assertEquals(1, $result['id']);
+}
 ```
 
-## Documentation
+## 📚 Real-World Examples
+
+Check [EXAMPLES.md](./EXAMPLES.md) for complete implementations:
+- Blog with posts, comments, and categories
+- E-commerce checkout process
+- Multi-tenant SaaS structure
+- Admin dashboards
+- Testing patterns
+
+## 🤝 Contributing
+
+Contributions are welcome! See [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.
+
+## 📄 License
+
+The MIT License (MIT). Please see [LICENSE.md](LICENSE.md) for more information.
+
+## Support
+
+- 📖 **Documentation**: See `docs/` directory
+- 🐛 **Issues**: Report on GitHub
+- 💬 **Discussions**: Ask questions on GitHub Discussions
+- 🔧 **Help**: Check [Troubleshooting Guide](./docs/TROUBLESHOOTING.md)
 
 Project guide:
 
