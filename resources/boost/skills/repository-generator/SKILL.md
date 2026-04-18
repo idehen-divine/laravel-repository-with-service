@@ -158,6 +158,24 @@ public function search($query): Collection
 {
     return $this->model->where('name', 'like', "%$query%")->get();
 }
+
+// Update or create
+public function updateOrCreate(array $attributes, array $values = []): User
+{
+    return $this->model->updateOrCreate($attributes, $values);
+}
+
+// First or create
+public function firstOrCreate(array $attributes, array $values = []): User
+{
+    return $this->model->firstOrCreate($attributes, $values);
+}
+
+// Query builder access
+public function query(): Builder
+{
+    return $this->model->query();
+}
 ```
 
 ### Relationship Methods
@@ -256,6 +274,41 @@ php artisan make:repository Shop/Product --service
 ```
 
 ## Advanced Patterns
+
+### New Methods (v2.0.0+)
+
+#### updateOrCreate() - Atomic Update or Create
+
+```php
+// Usage: Update if exists, create if not
+$user = $repository->updateOrCreate(
+    ['email' => 'john@example.com'],  // Find by these attributes
+    ['name' => 'John Doe']             // Values to update/create
+);
+```
+
+#### firstOrCreate() - Retrieve or Create
+
+```php
+// Usage: Get first matching, or create if none found
+$user = $repository->firstOrCreate(
+    ['email' => 'john@example.com'],  // Find by these attributes
+    ['name' => 'John Doe']             // Values if creating
+);
+```
+
+#### query() - Raw Query Builder
+
+```php
+// Usage: Access raw query builder for complex queries
+$users = $repository->query()
+    ->where('status', 'active')
+    ->whereHas('posts', function ($q) {
+        $q->where('published', true);
+    })
+    ->orderByDesc('created_at')
+    ->paginate(15);
+```
 
 ### Using Scopes in Repository
 
