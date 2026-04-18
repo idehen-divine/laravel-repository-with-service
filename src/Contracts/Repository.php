@@ -34,7 +34,7 @@ interface Repository
      * Create an item
      *
      * @param  array|mixed  $data
-     * @return Model|null
+     * @return Model
      */
     public function create($data);
 
