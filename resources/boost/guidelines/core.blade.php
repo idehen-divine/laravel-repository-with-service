@@ -1,34 +1,51 @@
-# Laravel Repository With Service — Quick Guide
+<x-guide name="Laravel Repository With Service">
 
-This package scaffolds the Repository + Service pattern for Laravel and provides automatic container binding and
-generation commands. See the full documentation for details.
+    # Repository + Service Pattern
 
-## Quick Overview
+    This package scaffolds the Repository + Service pattern for Laravel with automatic container binding and code
+    generation. Use repositories for data access and services for business logic orchestration.
 
-- Purpose: Generate repositories and services, auto-bind implementations, and standardize data/business layers.
-- Location: repositories in `app/Repositories`, services in `app/Services`.
-- Naming: `Repository` / `Service` interfaces; `RepositoryImplement` / `ServiceImplement` implementations.
+    ## Quick Overview
 
-## Common Commands
+    - **Purpose**: Generate repositories and services, auto-bind implementations, standardize data/business layers.
+    - **Location**: repositories in `app/Repositories`, services in `app/Services`.
+    - **Naming**: `Repository` / `Service` interfaces; `RepositoryImplement` / `ServiceImplement` implementations.
 
-```bash
-php artisan make:model User --all # model + repo + service + migration/factory/seeder
-php artisan make:repository Post --service --api
-php artisan make:service Order --api
-```
+    ## Common Commands
 
-## Key Conventions
+    ```bash
+    php artisan make:model User --all
+    php artisan make:repository Post --service --api
+    php artisan make:service Order --api
+    ```
 
-- Repositories handle data access (`all`, `find`, `create`, `update`, `delete`, `updateOrCreate`, `firstOrCreate`,
-`query`).
-- Services orchestrate business logic and may use the `ResultService` trait for API responses.
-- Prefer type-hinting models and return types; keep repositories focused and services thin.
+    ## Data Access Methods
 
-## Where to Read More
+    Repositories provide these core methods for data access:
 
-- Note: when this guideline is generated into an application it cannot link back into the package repository.
-- Package documentation is shipped with the installed package; check `vendor/l0n3ly/laravel-repository-with-service/docs/` inside your project after installation.
-- Alternatively, view the project documentation online: https://github.com/l0n3ly/laravel-repository-with-service
+    - `all()` - Return all records
+    - `find($id)` - Find by ID
+    - `findOrFail($id)` - Find or throw exception
+    - `create($data)` - Create new record
+    - `update($id, $data)` - Update record (returns Model)
+    - `delete($id)` - Delete single record
+    - `destroy(array $ids)` - Delete multiple records
+    - `query()` - Get fresh query builder
+    - `updateOrCreate($where, $values)` - Update or create
+    - `firstOrCreate($where, $values)` - Find or create
 
---
-Small, focused guidance — refer to the docs for full patterns and samples.
+    ## Service Conventions
+
+    - Inject repositories via constructor
+    - Use `ResultService` trait for API responses
+    - Wrap operations in try-catch
+    - Keep business logic separate from data access
+    - Type all parameters and return values
+
+    ## Documentation
+
+    Full documentation available:
+    - In package: `vendor/l0n3ly/laravel-repository-with-service/docs/`
+    - Online: https://github.com/l0n3ly/laravel-repository-with-service
+
+</x-guide>
