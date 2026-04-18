@@ -363,6 +363,6 @@ cat app/Repositories/UserRepositoryImplement.php
 
 ## See Also
 
-- [Installation](./INSTALLATION.md)
-- [Quick Start](./QUICKSTART.md)
-- [Commands](./COMMANDS.md)
+- [Main Documentation](../README.md) - Installation, quick start, and command reference
+- [API Reference](./API.md) - Core interfaces and configuration
+- [Examples](./EXAMPLES.md) - Real-world usage examples
