@@ -58,7 +58,7 @@ class Eloquent implements Repository
      *
      * @param  int|mixed  $id
      * @param  array|mixed  $data
-     * @return Model|null
+     * @return Model
      */
     public function update($id, array $data)
     {
