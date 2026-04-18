@@ -50,7 +50,22 @@ Ensure all tests pass:
 ```bash
 composer test
 ```
+## Security & Dependencies
 
+This package enforces secure dependency resolution with `composer audit --strict`. The `block-insecure` setting in `composer.json` is set to `true`, which means:
+
+- **Composer will block installation** if any dependency has a known security vulnerability
+- **All contributors** must keep dependencies updated and address advisories
+- **Users can trust** that this package doesn't introduce known vulnerabilities
+
+When updating dependencies, ensure `composer install` and `composer audit` pass without warnings. If advisories appear:
+
+1. Check if a patched version is available
+2. Update the dependency constraint in `composer.json`
+3. Run `composer update <package-name>` to resolve
+4. Verify tests pass: `composer test`
+
+For more information on Composer security audits, see [Composer Security Advisories](https://packagist.org/advisories).
 With coverage report:
 
 ```bash
