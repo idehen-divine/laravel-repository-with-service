@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 interface Repository
 {
     /**
-     * Fin an item by id
+     * Find an item by id
      *
      * @param  mixed  $id
      * @return Model|null
@@ -26,7 +26,7 @@ interface Repository
     /**
      * Return all items
      *
-     * @return Collection|null
+     * @return Collection
      */
     public function all();
 
@@ -43,7 +43,7 @@ interface Repository
      *
      * @param  int|mixed  $id
      * @param  array|mixed  $data
-     * @return bool|mixed
+     * @return Model|null
      */
     public function update($id, array $data);
 
@@ -60,4 +60,29 @@ interface Repository
      * @return mixed
      */
     public function destroy(array $id);
+
+    /**
+     * Update an existing model or create a new one
+     *
+     * @param  array  $attributes
+     * @param  array  $values
+     * @return Model
+     */
+    public function updateOrCreate(array $attributes, array $values = []);
+
+    /**
+     * Find an existing model or create a new one
+     *
+     * @param  array  $attributes
+     * @param  array  $values
+     * @return Model
+     */
+    public function firstOrCreate(array $attributes, array $values = []);
+
+    /**
+     * Get a new query builder for the model
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function query();
 }

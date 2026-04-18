@@ -94,6 +94,8 @@ interface PostRepository
     public function find($id);
     public function create(array $data);
     public function update($id, array $data);
+    public function updateOrCreate(array $attributes, array $values = []);
+    public function firstOrCreate(array $attributes, array $values = []);
     public function delete($id);
     public function published();
 }

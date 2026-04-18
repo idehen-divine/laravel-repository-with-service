@@ -382,6 +382,14 @@ class UserRepositoryImplement implements UserRepository
     {
         return $this->model->create($attributes);
     }
+
+    public function update($id, array $attributes)
+    {
+        // Returns the updated model instance (changed from boolean to Model)
+    }
+
+    public function updateOrCreate(array $attributes, array $values = []);
+    public function firstOrCreate(array $attributes, array $values = []);
 }
 ```
 

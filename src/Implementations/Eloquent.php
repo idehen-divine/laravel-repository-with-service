@@ -12,7 +12,7 @@ use L0n3ly\LaravelRepositoryWithService\Contracts\Repository;
 class Eloquent implements Repository
 {
     /**
-     * Fin an item by id
+     * Find an item by id
      *
      * @param  mixed  $id
      * @return Model|null
@@ -54,15 +54,17 @@ class Eloquent implements Repository
     }
 
     /**
-     * Update a item
+     * Update a model
      *
      * @param  int|mixed  $id
      * @param  array|mixed  $data
-     * @return bool|mixed
+     * @return Model|null
      */
     public function update($id, array $data)
     {
-        return $this->model->findOrFail($id)->update($data);
+        $model = $this->model->findOrFail($id);
+        $model->update($data);
+        return $model;
     }
 
     /**
@@ -84,5 +86,39 @@ class Eloquent implements Repository
     public function delete($id)
     {
         return $this->model->findOrFail($id)->delete();
+    }
+
+    /**
+     * Update an existing model or create a new one
+     *
+     * @param  array  $attributes
+     * @param  array  $values
+     * @return Model
+     */
+    public function updateOrCreate(array $attributes, array $values = [])
+    {
+        return $this->model->updateOrCreate($attributes, $values);
+    }
+
+    /**
+     * Find an existing model or create a new one
+     *
+     * @param  array  $attributes
+     * @param  array  $values
+     * @return Model
+     */
+    public function firstOrCreate(array $attributes, array $values = [])
+    {
+        return $this->model->firstOrCreate($attributes, $values);
+    }
+
+    /**
+     * Get a new query builder for the model
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function query()
+    {
+        return $this->model->newQuery();
     }
 }
