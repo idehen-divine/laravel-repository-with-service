@@ -118,7 +118,7 @@ class UserRepositoryImplement implements UserRepository
 
     public function update($id, array $data): User
     {
-        $model = $this->model->find($id);
+        $model = $this->model->findOrFail($id);
         $model->update($data);
         return $model;
     }

@@ -90,11 +90,19 @@ use App\Models\Post;
 
 interface PostRepository
 {
+    // Base repository contract methods
     public function all();
     public function find($id);
+    public function findOrFail($id);
     public function create(array $data);
     public function update($id, array $data);
     public function delete($id);
+    public function destroy(array $id);
+    public function updateOrCreate(array $attributes, array $values = []);
+    public function firstOrCreate(array $attributes, array $values = []);
+    public function query();
+
+    // Domain-specific methods
     public function published();
 }
 
@@ -538,4 +546,4 @@ These examples demonstrate real-world usage patterns. Adapt them to your specifi
 
 ---
 
-See [Documentation](./docs) for more information.
+See [Main Documentation](../README.md) for installation, quick start, and command reference.
