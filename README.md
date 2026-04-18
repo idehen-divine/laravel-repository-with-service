@@ -111,16 +111,14 @@ class UserController extends Controller
 
 ## 📖 Documentation
 
-Comprehensive documentation is available in the `docs/` directory:
+Comprehensive documentation is available:
 
 | Document | Purpose |
 |----------|---------|
-| [Installation Guide](./docs/INSTALLATION.md) | Setup and configuration instructions |
-| [Quick Start Guide](./docs/QUICKSTART.md) | Getting started with the package |
-| [Command Reference](./docs/COMMANDS.md) | Detailed command documentation |
-| [API Documentation](./docs/API.md) | API reference and advanced usage |
-| [Troubleshooting Guide](./docs/TROUBLESHOOTING.md) | Common issues and solutions |
-| [Examples](./EXAMPLES.md) | Real-world usage examples |
+| [Full Guide](./docs/README.md) | Installation, quick start, and all commands |
+| [API Reference](./docs/API.md) | Core interfaces and configuration |
+| [Troubleshooting](./docs/TROUBLESHOOTING.md) | Common issues and solutions |
+| [Examples](./docs/EXAMPLES.md) | Real-world usage examples |
 | [Contributing](./CONTRIBUTING.md) | Contribution guidelines |
 | [Laravel Boost Integration](./BOOST.md) | Using with AI-powered Boost workflows |
 
