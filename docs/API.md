@@ -1,34 +1,6 @@
 # API Documentation
 
-## Model Make Command Override
-
-The package overrides Laravel's `make:model` command to support automatic repository and service generation:
-
-```bash
-php artisan make:model User                           # Model only
-php artisan make:model User --service                 # Model + service
-php artisan make:model User --repository              # Model + repository
-php artisan make:model User --service --repository    # Model + both
-php artisan make:model User --all                     # Model + migration + factory + seeder + service + repository
-```
-
-### Model Wrapping Pattern
-
-When you generate a repository, it automatically wraps the corresponding Eloquent model:
-
-```php
-class UserRepositoryImplement implements UserRepository
-{
-    public function __construct(protected User $model) {}
-
-    public function all()
-    {
-        return $this->model->all();
-    }
-}
-```
-
-The repository name determines which model to wrap. The model is resolved from the service container by class name matching.
+Core interfaces, classes, and configuration for the Laravel Repository with Service package.
 
 ## Core Interfaces
 
@@ -106,90 +78,6 @@ $userService = L0n3lyRepositoryWithService::resolve(UserService::class);
 // Check if bound
 if (L0n3lyRepositoryWithService::isBound(UserRepository::class)) {
     // Service is available
-}
-```
-
-## Generated Repository Structure
-
-When you run `make:repository User`, the following structure is created:
-
-### Interface (UserRepository.php)
-
-```php
-<?php
-
-namespace App\Repositories;
-
-interface UserRepository
-{
-    // Define repository contract methods
-}
-```
-
-### Implementation (UserRepositoryImplement.php)
-
-```php
-<?php
-
-namespace App\Repositories;
-
-use App\Models\User;
-
-class UserRepositoryImplement implements UserRepository
-{
-    public function __construct(protected User $model) {}
-
-    public function all()
-    {
-        return $this->model->all();
-    }
-}
-```
-
-### Auto-Binding
-
-The package automatically binds three levels:
-
-**Level 1 - Model Resolution**:
-UserRepositoryImplement → injects User model
-
-**Level 2 - Repository Binding**:
-UserRepository (interface) → UserRepositoryImplement (implementation)
-
-**Level 3 - Service Binding**:
-UserService (interface) → UserServiceImplement (implementation) → injects repository
-
-## Generated Service Structure
-
-When you run `make:service User`, the following is created:
-
-### Interface (UserService.php)
-
-```php
-<?php
-
-namespace App\Services;
-
-interface UserService
-{
-    // Define service contract methods
-}
-```
-
-### Implementation (UserServiceImplement.php)
-
-```php
-<?php
-
-namespace App\Services;
-
-class UserServiceImplement implements UserService
-{
-    public function __construct(
-        protected UserRepository $repository
-    ) {}
-
-    // Implement service methods
 }
 ```
 
@@ -359,14 +247,12 @@ if ($this->app->environment('production')) {
 
 ### Repository with Eloquent
 
+A typical Eloquent repository implementation:
+
 ```php
 class UserRepositoryImplement implements UserRepository
 {
-    public function __construct(
-        protected User $model = null
-    ) {
-        $this->model = $model ?? new User();
-    }
+    public function __construct(protected User $model) {}
 
     public function all()
     {
@@ -385,7 +271,7 @@ class UserRepositoryImplement implements UserRepository
 
     public function update($id, array $attributes)
     {
-        $model = $this->model->find($id);
+        $model = $this->model->findOrFail($id);
         $model->update($attributes);
 
         return $model->fresh();
@@ -405,6 +291,6 @@ class UserRepositoryImplement implements UserRepository
 
 ## See Also
 
-- [Installation](./INSTALLATION.md)
-- [Quick Start](./QUICKSTART.md)
-- [Commands](./COMMANDS.md)
+- [Main Documentation](../README.md) - Installation, quick start, and command reference
+- [Troubleshooting](./TROUBLESHOOTING.md) - Common issues and solutions
+- [Examples](./EXAMPLES.md) - Real-world usage examples
