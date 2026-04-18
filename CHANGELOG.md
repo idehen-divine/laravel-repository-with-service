@@ -24,15 +24,20 @@ All notable changes to `laravel-repository-with-service` will be documented in t
 -
 -->
 
-## [1.3.0] - 2026-04-18
+## [2.0.0] - 2026-04-18
 
 ### Added
 
 - Added `updateOrCreate()` and `firstOrCreate()` methods to the `Repository` contract and Eloquent implementation.
+- Added `query()` method to get a fresh query builder for the model.
 
 ### Changed
 
 - `update()` now returns the updated model instance (`Model`) instead of a boolean.
+
+### ⚠️ BREAKING CHANGES
+
+- **`update()` return type changed**: Previously returned `bool`, now returns `Model|null`. Code checking `if ($repository->update($id, $data))` will need updating.
 
 
 ## [1.2.1] - 2026-04-16
