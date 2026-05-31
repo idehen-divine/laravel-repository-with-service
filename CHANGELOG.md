@@ -24,6 +24,12 @@ All notable changes to `laravel-repository-with-service` will be documented in t
 -
 -->
 
+## [2.0.1] - 2026-05-31
+
+### Fixed
+
+- Fixed Laravel Boost integration by removing invalid `<x-guide>` component wrapper from guidelines, resolving "Unable to locate a class or view for component [guide]" error
+
 ## [2.0.0] - 2026-04-18
 
 ### Added
